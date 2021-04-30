@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+
+const Avatar = () =>
+  <svg viewBox="0 0 100 100" className="Avatar">
+    <circle cx="50" cy="50" r="50" fill="pink" />
+  </svg>
+
+
+
+const Message = props =>
+  <div className="message">
+    {Avatar()}
+    <div className="messageText">
+      <p className="contactId">{props.name}</p>
+      <p className="messageContent">{props.content}</p>
+    </div>
+  </div>
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Message name="bob" content="my message is long, but you shall hear it" />
+      <Message name="bob" content="even if you do not like it" />
+      <Message name="mark" content="really?" />
     </div>
-  );
+  )
 }
 
 export default App;

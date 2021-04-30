@@ -11,7 +11,25 @@ connection.ondatachannel = event => {
   channel.onmessage = console.log
 }
 
-console.log(connection)
+const createOffer = async () => {
+  console.log("creating offer")
+  channel = connection.createDataChannel("data")
+  connection.onicecandidate = event => {
+    if(!event.candidate) {
+      console.log(JSON.stringify(connection.localDescription))
+    }
+  }
+
+  const offer = await connection.createOffer()
+  await connection.setLocalDescription(offer)
+}
+
+const acceptOffer = async (offer) => {
+  const offerObj = JSON.parse(offer)
+  await connection.setRemoteDescription(offerObj.value)
+}
+
+createOffer()
 
 const Avatar = () =>
   <svg viewBox="0 0 100 100" className="Avatar">

@@ -1,9 +1,12 @@
+p {
+  color: #dcddde;
+}
+
 
 .message {
   display: flex;
   flex-direction: row;
   background-color: #303030;
-  color: #dcddde;
   transition: background-color .25s cubic-bezier(.43,0,.2,1);
 }
 

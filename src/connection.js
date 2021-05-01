@@ -1,3 +1,5 @@
+//lots of code from https://mac-blog.org.ua/webrtc-one-to-one-without-signaling-server/
+
 export default class Connection {
     constructor() {
         this.channel = null
@@ -24,8 +26,23 @@ export default class Connection {
         await this.rtc.setLocalDescription(offer)
     }
 
+    async createAnswer() {
+        this.rtc.onicecandidate = event => {
+            if (!event.candidate) console.log(JSON.stringify(this.rtc.localDescription))
+        }
+
+        const answer = await this.rtc.createAnswer()
+        await this.rtc.setLocalDescription(answer)
+    }
+
     async acceptOffer(offer) {
         const offerObj = JSON.parse(offer)
         await this.rtc.setRemoteDescription(offerObj.value)
     }
+
+    async acceptAnswer(answer) {
+        const answerObj = JSON.parse(answer)
+        await this.rtc.setRemoteDescription(answerObj.value)
+    }
+
 }

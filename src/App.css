@@ -9,7 +9,7 @@ button {
   padding: 1vw;
 }
 
-.CreateOffer {
+div.Create {
   display: flex;
   flex-direction: column;
 }

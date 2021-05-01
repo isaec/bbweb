@@ -5,24 +5,24 @@ import Connection from './connection';
 
 const connection = new Connection()
 
-class CreateOffer extends React.Component {
+class Create extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            offer: null
+            result: null
         }
     }
     async click() {
-        const offer = await connection.createOffer()
-        console.log(offer)
-        this.setState({ offer: offer })
+        const result = await this.props.fn()
+        this.setState({ result: result })
     }
     render() {
-        return <div className="CreateOffer">
-            <p>
-               {this.state.offer}
-            </p>
-            <button onClick={async () => await this.click()}>create offer</button>
+        return <div className="Create">
+            <p>{this.state.result}</p>
+            <button
+                onClick={async () => await this.click()}
+                disabled={this.state.result !== null}
+            >create {this.props.thing}</button>
 
         </div>
     }
@@ -65,7 +65,7 @@ function App() {
     return (
         <div className="App">
             <ConnectionState />
-            <CreateOffer />
+            <Create thing="offer" fn={connection.createOffer.bind(connection)}/>
             <Message name="bob" content="my message is long, but you shall hear it" />
             <Message name="bob" content="even if you do not like it" />
             <Message name="mark" content="really?" />

@@ -1,18 +1,29 @@
-p {
+p, button {
   color: #dcddde;
+  font-size: 1vw;
 }
 
+button {
+  background-color: #3b3b3b;
+  /* margin: .5vw; */
+  padding: 1vw;
+}
+
+.CreateOffer {
+  display: flex;
+  flex-direction: column;
+}
 
 .message {
   display: flex;
   flex-direction: row;
   background-color: #303030;
-  transition: background-color .25s cubic-bezier(.43,0,.2,1);
+  transition: background-color .25s cubic-bezier(.43, 0, .2, 1);
 }
 
 .message:hover {
   background-color: #3b3b3b;
-  transition: background-color .5s cubic-bezier(.81,.11,.23,.85);
+  transition: background-color .5s cubic-bezier(.81, .11, .23, .85);
   transition-delay: .25s;
 }
 
@@ -22,14 +33,12 @@ p {
   margin: .5vw;
 }
 
-
 .messageText {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-.contactId, .messageContent {
-  font-size: 1vw;
+.name, .messageContent {
   margin: .2vw .5vw;
 }

@@ -14,7 +14,6 @@ export default class Connection {
         }
     }
     async createOffer() {
-        console.log("creating offer")
         this.channel = this.rtc.createDataChannel("data")
         this.rtc.onicecandidate = event => {
             if (!event.candidate) {
@@ -24,6 +23,7 @@ export default class Connection {
 
         const offer = await this.rtc.createOffer()
         await this.rtc.setLocalDescription(offer)
+        return JSON.stringify(offer)
     }
 
     async createAnswer() {

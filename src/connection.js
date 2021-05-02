@@ -12,6 +12,13 @@ export default class Connection {
             this.channel.onopen = console.log
             this.channel.onmessage = console.log
         }
+
+        this.ops = Object.freeze({
+            createOffer: "createOffer",
+            createAnswer: "createAnswer",
+            acceptOffer: "acceptOffer",
+            acceptAnswer: "acceptAnswer"
+        })
     }
     async createOffer() {
         this.channel = this.rtc.createDataChannel("data")

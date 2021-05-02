@@ -5,25 +5,67 @@ import Connection from './connection';
 
 const connection = new Connection()
 
-class Create extends React.Component {
+
+// class Create extends React.Component {
+//     constructor(props) {
+//         super(props)
+//         this.state = {
+//             result: null
+//         }
+//     }
+//     async click() {
+//         const result = await this.props.fn()
+//         this.setState({ result: result })
+//     }
+//     render() {
+//         return <div className="Create">
+//             <code className="copy">{this.state.result}</code>
+//             <button
+//                 onClick={async () => await this.click()}
+//                 disabled={this.state.result !== null}
+//             >create {this.props.thing}</button>
+
+//         </div>
+//     }
+// }
+
+
+
+const Create = props => <div className="Create">
+    <code className="copy">{props.result}</code>
+    <button
+        onClick={async () => await props.fn()}
+        disabled={props.result !== null}
+    >create {props.thing}</button>
+</div>
+
+
+
+class ConnectionHandler extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            result: null
+            offer: null,
+            answer: null
         }
     }
-    async click() {
-        const result = await this.props.fn()
-        this.setState({ result: result })
-    }
-    render() {
-        return <div className="Create">
-            <code className="copy">{this.state.result}</code>
-            <button
-                onClick={async () => await this.click()}
-                disabled={this.state.result !== null}
-            >create {this.props.thing}</button>
 
+    async do(thing, data) {
+        console.log(thing)
+    }
+
+    render() {
+        return <div className="ConnectionHandler">
+            <Create
+                thing="offer"
+                result={this.state.offer}
+                fn={this.do.bind(this, connection.ops.createOffer)}
+            />
+            <Create
+                thing="answer"
+                result={this.state.offer}
+                fn={this.do.bind(this, connection.ops.createAnswer)}
+            />
         </div>
     }
 }
@@ -65,7 +107,7 @@ function App() {
     return (
         <div className="App">
             <ConnectionState />
-            <Create thing="offer" fn={connection.createOffer.bind(connection)}/>
+            <ConnectionHandler />
             <Message name="bob" content="my message is long, but you shall hear it" />
             <Message name="bob" content="even if you do not like it" />
             <Message name="mark" content="really?" />

@@ -51,7 +51,18 @@ class ConnectionHandler extends React.Component {
     }
 
     async do(thing, data) {
-        console.log(thing)
+        switch (thing) {
+            case Connection.ops.createOffer:
+                const offer = await connection.createOffer()
+                this.setState({ offer: offer })
+                break
+            case Connection.ops.createAnswer:
+                    const answer = await connection.createAnswer()
+                    this.setState({ answer: answer })
+                    break
+            default:
+                console.log(thing, data)
+        }
     }
 
     render() {
@@ -59,12 +70,12 @@ class ConnectionHandler extends React.Component {
             <Create
                 thing="offer"
                 result={this.state.offer}
-                fn={this.do.bind(this, connection.ops.createOffer)}
+                fn={this.do.bind(this, Connection.ops.createOffer)}
             />
             <Create
                 thing="answer"
-                result={this.state.offer}
-                fn={this.do.bind(this, connection.ops.createAnswer)}
+                result={this.state.answer}
+                fn={this.do.bind(this, Connection.ops.createAnswer)}
             />
         </div>
     }

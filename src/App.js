@@ -132,6 +132,16 @@ const Message = props =>
         </div>
     </div>
 
+const Messages = props => {
+    const messageList = props.messages.map(
+        message =>
+            <Message key={message.id} name={message.name} content={message.content} />
+    )
+    return messageList
+}
+
+
+
 class ConnectionState extends React.Component {
     constructor(props) {
         super(props)
@@ -155,9 +165,13 @@ function App() {
         <div className="App">
             <ConnectionState />
             <ConnectionHandler />
-            <Message name="bob" content="my message is long, but you shall hear it" />
-            <Message name="bob" content="even if you do not like it" />
-            <Message name="mark" content="really?" />
+            <Messages messages={
+                [
+                    { id: 1, name:"bob", content: "my message is long, but you shall hear it" },
+                    { id: 2, name:"bob", content: "even if you do not like it" },
+                    { id: 3, name:"mark", content: "really?" },
+                ]
+            } />
         </div>
     )
 }

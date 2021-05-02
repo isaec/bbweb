@@ -19,15 +19,16 @@ export default class Connection {
         acceptOffer: "acceptOffer",
         acceptAnswer: "acceptAnswer"
     })
-    async createOffer() {
-        this.channel = this.rtc.createDataChannel("data")
-        let localDescription = new Promise((resolve, reject) => {
+    async _localDescription(){
+        return new Promise((resolve, reject) => {
             this.rtc.onicecandidate = event => {
-                if (!event.candidate) {
-                    resolve(JSON.stringify(this.rtc.localDescription))
-                }
+                if (!event.candidate) resolve(JSON.stringify(this.rtc.localDescription))
             }
         })
+    }
+    async createOffer() {
+        this.channel = this.rtc.createDataChannel("data")
+        let localDescription = this._localDescription()
 
         const offer = await this.rtc.createOffer()
         await this.rtc.setLocalDescription(offer)
@@ -36,12 +37,12 @@ export default class Connection {
     }
 
     async createAnswer() {
-        this.rtc.onicecandidate = event => {
-            if (!event.candidate) console.log(JSON.stringify(this.rtc.localDescription))
-        }
+        let localDescription = this._localDescription()
 
         const answer = await this.rtc.createAnswer()
         await this.rtc.setLocalDescription(answer)
+        await localDescription
+        return localDescription
     }
 
     async acceptOffer(offer) {

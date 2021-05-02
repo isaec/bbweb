@@ -46,12 +46,12 @@ export default class Connection {
 
     async acceptOffer(offer) {
         const offerObj = JSON.parse(offer)
-        await this.rtc.setRemoteDescription(offerObj.value)
+        await this.rtc.setRemoteDescription(offerObj)
     }
 
     async acceptAnswer(answer) {
         const answerObj = JSON.parse(answer)
-        await this.rtc.setRemoteDescription(answerObj.value)
+        await this.rtc.setRemoteDescription(answerObj)
     }
 
 }

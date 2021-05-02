@@ -1,51 +1,59 @@
 p, button, code {
-  color: #dcddde;
-  font-size: 1vw;
+    color: #dcddde;
+    font-size: 1vw;
 }
 
 button {
-  background-color: #3b3b3b;
-  /* margin: .5vw; */
-  padding: 1vw;
+    background-color: #3b3b3b;
+    /* margin: .5vw; */
+    padding: 1vw;
+}
+
+code.copy {
+    flex: 1 1 12em;
+    word-break: break-all;
+    padding: .5vw;
+    user-select: all;
+    background-color: #242424;
 }
 
 div.Create {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 0px;
-  width: 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+    width: 0;
 }
 
 div.ConnectionHandler {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .message {
-  display: flex;
-  flex-direction: row;
-  background-color: #303030;
-  transition: background-color .25s cubic-bezier(.43, 0, .2, 1);
+    display: flex;
+    flex-direction: row;
+    background-color: #303030;
+    transition: background-color .25s cubic-bezier(.43, 0, .2, 1);
 }
 
 .message:hover {
-  background-color: #3b3b3b;
-  transition: background-color .5s cubic-bezier(.81, .11, .23, .85);
-  transition-delay: .25s;
+    background-color: #3b3b3b;
+    transition: background-color .5s cubic-bezier(.81, .11, .23, .85);
+    transition-delay: .25s;
 }
 
 .Avatar {
-  flex-shrink: 1;
-  flex-basis: 2.5vw;
-  margin: .5vw;
+    flex-shrink: 1;
+    flex-basis: 2.5vw;
+    margin: .5vw;
 }
 
 .messageText {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .name, .messageContent {
-  margin: .2vw .5vw;
+    margin: .2vw .5vw;
 }

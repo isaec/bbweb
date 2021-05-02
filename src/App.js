@@ -57,9 +57,9 @@ class ConnectionHandler extends React.Component {
                 this.setState({ offer: offer })
                 break
             case Connection.ops.createAnswer:
-                    const answer = await connection.createAnswer()
-                    this.setState({ answer: answer })
-                    break
+                const answer = await connection.createAnswer()
+                this.setState({ answer: answer })
+                break
             default:
                 console.log(thing, data)
         }

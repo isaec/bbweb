@@ -7,6 +7,23 @@ button {
     background-color: #3b3b3b;
     /* margin: .5vw; */
     padding: 1vw;
+    transition: background-color 1s cubic-bezier(.57,.05,.09,.95), color 1s cubic-bezier(.57,.05,.09,.95);
+    border: none;
+}
+
+button:disabled {
+    background-color: #131313;
+    color: #8e9195;
+    transition-duration: .5s;
+}
+
+button:enabled:hover {
+    background-color: #272727;
+}
+
+button:enabled:active {
+    background-color: #080808;
+    transition: background-color .2s cubic-bezier(.2,.83,.23,.88), color .2s cubic-bezier(.2,.83,.23,.88)
 }
 
 code.copy, textarea.paste {
@@ -15,13 +32,14 @@ code.copy, textarea.paste {
     padding: .5vw;
     user-select: all;
     background-color: #242424;
+    font: 1vw monospace;
 }
 
 textarea.paste {
     border: none;
     resize: none;
     outline: none;
-    transition: background-color .25s cubic-bezier(.8,.19,.25,.94);
+    transition: background-color .25s cubic-bezier(.8, .19, .25, .94);
 }
 
 textarea.paste:focus {

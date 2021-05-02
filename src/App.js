@@ -38,6 +38,7 @@ class Accept extends React.Component {
 
                 onChange={this.handleChange}
                 value={this.state.value}
+                placeholder={`paste the ${this.props.thing} here to accept it`}
             ></textarea>
             <button
                 onClick={async () => await this.props.fn(this.state.value)}

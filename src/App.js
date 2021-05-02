@@ -117,17 +117,18 @@ class ConnectionHandler extends React.Component {
     }
 }
 
+const hsl = hue => `hsl(${hue},90%,70%)`
 
-const Avatar = () =>
+const Avatar = props =>
     <svg viewBox="0 0 100 100" className="Avatar">
-        <circle cx="50" cy="50" r="50" fill="pink" />
+        <circle cx="50" cy="50" r="50" fill={hsl(props.hue)} />
     </svg>
 
 const Message = props =>
     <div className="message">
-        {Avatar()}
+        <Avatar hue={props.hue} />
         <div className="messageText">
-            <p className="name">{props.name}</p>
+            <p className="name" style={{ color: hsl(props.hue) }}>{props.name}</p>
             <p className="messageContent">{props.content}</p>
         </div>
     </div>
@@ -135,12 +136,15 @@ const Message = props =>
 const Messages = props => {
     const messageList = props.messages.map(
         message =>
-            <Message key={message.id} name={message.name} content={message.content} />
+            <Message
+                key={message.id}
+                hue={message.hue}
+                name={message.name}
+                content={message.content}
+            />
     )
     return messageList
 }
-
-
 
 class ConnectionState extends React.Component {
     constructor(props) {
@@ -167,9 +171,11 @@ function App() {
             <ConnectionHandler />
             <Messages messages={
                 [
-                    { id: 1, name:"bob", content: "my message is long, but you shall hear it" },
-                    { id: 2, name:"bob", content: "even if you do not like it" },
-                    { id: 3, name:"mark", content: "really?" },
+                    { id: 1, hue:50, name: "bob", content: "my message is long, but you shall hear it" },
+                    { id: 2, hue:50, name: "bob", content: "even if you do not like it" },
+                    { id: 3, hue:170, name: "mark", content: "really?" },
+                    { id: 4, hue:0, name: "brad", content: "he lies!" },
+                    { id: 5, hue:90, name: "jon", content: "it is true" }
                 ]
             } />
         </div>

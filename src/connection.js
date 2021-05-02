@@ -45,14 +45,8 @@ export default class Connection {
         return localDescription
     }
 
-    async acceptOffer(offer) {
-        const offerObj = JSON.parse(offer)
-        await this.rtc.setRemoteDescription(offerObj)
+    async acceptRemote(remote) {
+        const remoteObj = JSON.parse(remote)
+        await this.rtc.setRemoteDescription(remoteObj)
     }
-
-    async acceptAnswer(answer) {
-        const answerObj = JSON.parse(answer)
-        await this.rtc.setRemoteDescription(answerObj)
-    }
-
 }

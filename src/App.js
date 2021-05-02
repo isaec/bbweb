@@ -71,11 +71,11 @@ class ConnectionHandler extends React.Component {
                 this.setState({ localAnswer: answer })
                 break
             case Connection.ops.acceptOffer:
-                connection.acceptOffer(data)
+                connection.acceptRemote(data)
                 this.setState({ remoteOffer: data })
                 break
             case Connection.ops.acceptAnswer:
-                connection.acceptAnswer(data)
+                connection.acceptRemote(data)
                 this.setState({ remoteAnswer: data })
                 break
             default:
@@ -85,26 +85,34 @@ class ConnectionHandler extends React.Component {
 
     render() {
         return <div className="ConnectionHandler">
-            <Create
-                thing="offer"
-                result={this.state.localOffer}
-                fn={this.do.bind(this, Connection.ops.createOffer)}
-            />
-            <Accept
-                thing="offer"
-                result={this.state.remoteOffer}
-                fn={this.do.bind(this, Connection.ops.acceptOffer)}
-            />
-            <Create
-                thing="answer"
-                result={this.state.localAnswer}
-                fn={this.do.bind(this, Connection.ops.createAnswer)}
-            />
-            <Accept
-                thing="answer"
-                result={this.state.remoteAnswer}
-                fn={this.do.bind(this, Connection.ops.acceptAnswer)}
-            />
+            {this.state.remoteOffer === null ?
+                <Create
+                    thing="offer"
+                    result={this.state.localOffer}
+                    fn={this.do.bind(this, Connection.ops.createOffer)}
+                />
+                :
+                <Create
+                    thing="answer"
+                    result={this.state.localAnswer}
+                    fn={this.do.bind(this, Connection.ops.createAnswer)}
+                />
+            }
+            {this.state.localOffer === null ?
+                <Accept
+                    thing="offer"
+                    result={this.state.remoteOffer}
+                    fn={this.do.bind(this, Connection.ops.acceptOffer)}
+                />
+                :
+                <Accept
+                    thing="answer"
+                    result={this.state.remoteAnswer}
+                    fn={this.do.bind(this, Connection.ops.acceptAnswer)}
+                />
+            }
+
+
         </div>
     }
 }

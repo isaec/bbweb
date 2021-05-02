@@ -6,39 +6,29 @@ import Connection from './connection';
 const connection = new Connection()
 
 
-// class Create extends React.Component {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             result: null
-//         }
-//     }
-//     async click() {
-//         const result = await this.props.fn()
-//         this.setState({ result: result })
-//     }
-//     render() {
-//         return <div className="Create">
-//             <code className="copy">{this.state.result}</code>
-//             <button
-//                 onClick={async () => await this.click()}
-//                 disabled={this.state.result !== null}
-//             >create {this.props.thing}</button>
-
-//         </div>
-//     }
-// }
-
-
-
 const Create = props => <div className="Create">
     <code className="copy">{props.result}</code>
     <button
         onClick={async () => await props.fn()}
         disabled={props.result !== null}
-    >create {props.thing}</button>
+    >create {props.thing}
+    </button>
 </div>
 
+const Accept = props => <div className="Accept">
+    <textarea
+        className="paste"
+        autoComplete="off"
+        autoCapitalize="none"
+        autoCorrect="off"
+        spellCheck="false"
+    ></textarea>
+    <button
+        onClick={async () => await props.fn()}
+        // disabled={props.data !== null}
+    >accept {props.thing}
+    </button>
+</div>
 
 
 class ConnectionHandler extends React.Component {
@@ -72,11 +62,15 @@ class ConnectionHandler extends React.Component {
                 result={this.state.offer}
                 fn={this.do.bind(this, Connection.ops.createOffer)}
             />
-            <Create
+            <Accept
+                thing="offer"
+                fn={this.do.bind(this, Connection.ops.acceptOffer)}
+            />
+            {/* <Create
                 thing="answer"
                 result={this.state.answer}
                 fn={this.do.bind(this, Connection.ops.createAnswer)}
-            />
+            /> */}
         </div>
     }
 }

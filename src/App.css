@@ -1,4 +1,4 @@
-p, button, code {
+p, button, code, textarea {
     color: #dcddde;
     font-size: 1vw;
 }
@@ -9,7 +9,7 @@ button {
     padding: 1vw;
 }
 
-code.copy {
+code.copy, textarea.paste {
     flex: 1 1 12em;
     word-break: break-all;
     padding: .5vw;
@@ -17,7 +17,18 @@ code.copy {
     background-color: #242424;
 }
 
-div.Create {
+textarea.paste {
+    border: none;
+    resize: none;
+    outline: none;
+    transition: background-color .25s cubic-bezier(.8,.19,.25,.94);
+}
+
+textarea.paste:focus {
+    background-color: #303030;
+}
+
+div.Create, div.Accept {
     display: flex;
     flex-direction: column;
     flex: 1 1 0px;

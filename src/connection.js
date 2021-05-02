@@ -15,15 +15,18 @@ export default class Connection {
     }
     async createOffer() {
         this.channel = this.rtc.createDataChannel("data")
-        this.rtc.onicecandidate = event => {
-            if (!event.candidate) {
-                console.log(JSON.stringify(this.rtc.localDescription))
+        let localDescription = new Promise((resolve, reject) => {
+            this.rtc.onicecandidate = event => {
+                if (!event.candidate) {
+                    resolve(JSON.stringify(this.rtc.localDescription))
+                }
             }
-        }
+        })
 
         const offer = await this.rtc.createOffer()
         await this.rtc.setLocalDescription(offer)
-        return JSON.stringify(offer)
+        await localDescription
+        return localDescription
     }
 
     async createAnswer() {

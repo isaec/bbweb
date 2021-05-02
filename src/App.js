@@ -18,7 +18,7 @@ class Create extends React.Component {
     }
     render() {
         return <div className="Create">
-            <p>{this.state.result}</p>
+            <code className="copy">{this.state.result}</code>
             <button
                 onClick={async () => await this.click()}
                 disabled={this.state.result !== null}

@@ -185,7 +185,7 @@ class ComposeMessage extends React.Component {
             value: "",
             lines: 1
         })
-        connection.channel.send(this.state.value)
+        this.props.send(this.state.value)
     }
     render() {
         return <div className="ComposeMessage">
@@ -215,19 +215,21 @@ class Chat extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            messages: [
-                new MessageData(1, 50, "bob", "my message is long but you shall hear it"),
-                { id: 2, hue: 50, name: "bob", content: "even if you do not like it" },
-                { id: 3, hue: 170, name: "mark", content: "really?" },
-                { id: 4, hue: 0, name: "brad", content: "he lies!" },
-                { id: 5, hue: 90, name: "jon", content: "it is true" }
-            ]
+            messages: []
         }
+        this.sendMessage = this.sendMessage.bind(this)
+    }
+    sendMessage(content) {
+        const message = new MessageData(1, 50, "test", content)
+        this.setState({
+            messages: [...this.state.messages, message]
+        })
+        connection.channel.send(message)
     }
     render() {
         return <div className="Chat">
             <Messages messages={this.state.messages} />
-            <ComposeMessage />
+            <ComposeMessage send={this.sendMessage} />
         </div>
     }
 }

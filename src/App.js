@@ -111,8 +111,6 @@ class ConnectionHandler extends React.Component {
                     fn={this.do.bind(this, Connection.ops.acceptAnswer)}
                 />
             }
-
-
         </div>
     }
 }
@@ -143,7 +141,42 @@ const Messages = props => {
                 content={message.content}
             />
     )
-    return messageList
+    return <div className="Messages">{messageList}</div>
+}
+
+class Chat extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            messages: [
+                { id: 1, hue: 50, name: "bob", content: "my message is long, but you shall hear it" },
+                { id: 2, hue: 50, name: "bob", content: "even if you do not like it" },
+                { id: 3, hue: 170, name: "mark", content: "really?" },
+                { id: 4, hue: 0, name: "brad", content: "he lies!" },
+                { id: 5, hue: 90, name: "jon", content: "it is true" }
+            ]
+        }
+    }
+    render() {
+        return <div
+            className="Chat"
+        >
+            <button
+                onClick={
+                    () => {
+                        const messages = this.state.messages.slice()
+                        messages.push({ id: 5, hue: 30, name: "test", content: "testing" })
+                        this.setState(
+                            {
+                                messages: messages
+                            }
+                        )
+                    }
+                }
+            >ye</button>
+            <Messages messages={this.state.messages} />
+        </div>
+    }
 }
 
 class ConnectionState extends React.Component {
@@ -169,15 +202,7 @@ function App() {
         <div className="App">
             <ConnectionState />
             <ConnectionHandler />
-            <Messages messages={
-                [
-                    { id: 1, hue:50, name: "bob", content: "my message is long, but you shall hear it" },
-                    { id: 2, hue:50, name: "bob", content: "even if you do not like it" },
-                    { id: 3, hue:170, name: "mark", content: "really?" },
-                    { id: 4, hue:0, name: "brad", content: "he lies!" },
-                    { id: 5, hue:90, name: "jon", content: "it is true" }
-                ]
-            } />
+            <Chat />
         </div>
     )
 }

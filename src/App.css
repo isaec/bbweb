@@ -3,6 +3,12 @@ p, button, code, textarea {
     font-size: 1vw;
 }
 
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
 button {
     background-color: #3b3b3b;
     /* margin: .5vw; */
@@ -69,6 +75,20 @@ div.ConnectionHandler {
     background-color: #3b3b3b;
     transition: background-color .5s cubic-bezier(.81, .11, .23, .85);
     transition-delay: .25s;
+}
+
+div.Messages {
+    overflow-y: auto;
+    flex: 1 1 auto;
+    height: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+div.Chat {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .Avatar {

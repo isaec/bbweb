@@ -9,9 +9,11 @@ export default class Connection {
         this.rtc.ondatachannel = event => {
             console.log("ondatachannel")
             this.channel = event.channel
-            this.channel.onopen = console.log
-            this.channel.onmessage = console.log
+            // this.channel.onopen = console.log
+            this.channel.onmessage = this.onMessage.bind(this)
         }
+
+        this.onMessageCallback = undefined
     }
     static ops = Object.freeze({
         createOffer: "createOffer",
@@ -19,6 +21,9 @@ export default class Connection {
         acceptOffer: "acceptOffer",
         acceptAnswer: "acceptAnswer"
     })
+    onMessage(e){
+        if(this.onMessageCallback) this.onMessageCallback(e.data)
+    }
     async _localDescription(){
         return new Promise((resolve, reject) => {
             this.rtc.onicecandidate = event => {

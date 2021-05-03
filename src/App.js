@@ -218,13 +218,19 @@ class Chat extends React.Component {
             messages: []
         }
         this.sendMessage = this.sendMessage.bind(this)
+        connection.onMessageCallback = this.onMessage.bind(this)
     }
     sendMessage(content) {
         const message = new MessageData(1, 50, "test", content)
         this.setState({
             messages: [...this.state.messages, message]
         })
-        connection.channel.send(message)
+        connection.channel.send(JSON.stringify(message))
+    }
+    onMessage(data) {
+        this.setState({
+            messages: [...this.state.messages, JSON.parse(data)]
+        })
     }
     render() {
         return <div className="Chat">

@@ -163,6 +163,7 @@ class ComposeMessage extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.keyDown = this.keyDown.bind(this)
+        this.canSend = this.canSend.bind(this)
         this.send = this.send.bind(this)
     }
     handleChange(event) {
@@ -172,7 +173,7 @@ class ComposeMessage extends React.Component {
         })
     }
     keyDown(e) {
-        if (e.key === "Enter" && !e.shiftKey) {
+        if (e.key === "Enter" && !e.shiftKey && this.canSend()) {
             this.send()
             e.preventDefault()
             this.setState({
@@ -181,6 +182,7 @@ class ComposeMessage extends React.Component {
             })
         }
     }
+    canSend() { return /\p{L}/u.test(this.state.value) }
     send() {
         console.log(this.state.value)
     }
@@ -201,7 +203,7 @@ class ComposeMessage extends React.Component {
             ></textarea>
             <button
                 onClick={this.send}
-                disabled={this.state.value.length < 1}
+                disabled={!this.canSend()}
             >send</button>
         </div>
     }

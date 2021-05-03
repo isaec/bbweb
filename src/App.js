@@ -162,12 +162,27 @@ class ComposeMessage extends React.Component {
             lines: 1
         }
         this.handleChange = this.handleChange.bind(this)
+        this.keyDown = this.keyDown.bind(this)
+        this.send = this.send.bind(this)
     }
     handleChange(event) {
         this.setState({
             value: event.target.value,
             lines: Math.min(event.target.value.split(/\n/).length, 10)
         })
+    }
+    keyDown(e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+            this.send()
+            e.preventDefault()
+            this.setState({
+                value: "",
+                lines: 1
+            })
+        }
+    }
+    send() {
+        console.log(this.state.value)
     }
     render() {
         return <div className="ComposeMessage">
@@ -179,12 +194,13 @@ class ComposeMessage extends React.Component {
                 spellCheck="true"
 
                 onChange={this.handleChange}
+                onKeyDown={this.keyDown}
                 value={this.state.value}
                 placeholder="type a message to the group"
                 rows={this.state.lines}
             ></textarea>
             <button
-                onClick={() => console.log(this.state.value)}
+                onClick={this.send}
                 disabled={this.state.value.length < 1}
             >send</button>
         </div>

@@ -221,7 +221,7 @@ class Chat extends React.Component {
         connection.onMessageCallback = this.onMessage.bind(this)
     }
     sendMessage(content) {
-        const message = new MessageData(1, 50, "test", content)
+        const message = new MessageData(50, "test", content)
         this.setState({
             messages: [...this.state.messages, message]
         })

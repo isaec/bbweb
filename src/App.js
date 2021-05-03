@@ -176,15 +176,15 @@ class ComposeMessage extends React.Component {
         if (e.key === "Enter" && !e.shiftKey && this.canSend()) {
             this.send()
             e.preventDefault()
-            this.setState({
-                value: "",
-                lines: 1
-            })
         }
     }
-    canSend() { return /\p{L}/u.test(this.state.value) }
+    canSend() { return /\p{L}/u.test(this.state.value) && connection.rtc.connectionState === "connected" }
     send() {
-        console.log(this.state.value)
+        this.setState({
+            value: "",
+            lines: 1
+        })
+        connection.channel.send(this.state.value)
     }
     render() {
         return <div className="ComposeMessage">

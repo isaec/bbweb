@@ -123,12 +123,19 @@ const Avatar = props =>
     </svg>
 
 const Message = props =>
-    <div className="message">
+    <div className="Message">
         <Avatar hue={props.hue} />
         <div className="messageText">
             <p className="name" style={{ color: hsl(props.hue) }}>{props.name}</p>
             <p className="messageContent">{props.content}</p>
         </div>
+    </div>
+
+const MessageAlert = props =>
+    <div className="MessageAlert">
+        <p
+            style={{ color: hsl(props.hue) }}
+        >{props.content}</p>
     </div>
 
 const Messages = props => {
@@ -141,7 +148,10 @@ const Messages = props => {
                 content={message.content}
             />
     )
-    return <div className="Messages">{messageList}</div>
+    return <div className="Messages">
+        <MessageAlert hue="40" content="local history begins" />
+        {messageList}
+    </div>
 }
 
 class Chat extends React.Component {

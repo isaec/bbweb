@@ -13,7 +13,7 @@ button {
     background-color: #3b3b3b;
     /* margin: .5vw; */
     padding: 1vw;
-    transition: background-color 1s cubic-bezier(.57,.05,.09,.95), color 1s cubic-bezier(.57,.05,.09,.95);
+    transition: background-color 1s cubic-bezier(.57, .05, .09, .95), color 1s cubic-bezier(.57, .05, .09, .95);
     border: none;
 }
 
@@ -29,7 +29,7 @@ button:enabled:hover {
 
 button:enabled:active {
     background-color: #080808;
-    transition: background-color .2s cubic-bezier(.2,.83,.23,.88), color .2s cubic-bezier(.2,.83,.23,.88)
+    transition: background-color .2s cubic-bezier(.2, .83, .23, .88), color .2s cubic-bezier(.2, .83, .23, .88)
 }
 
 code.copy, textarea.paste {
@@ -64,17 +64,25 @@ div.ConnectionHandler {
     flex-direction: row;
 }
 
-.message {
+div.Message, div.MessageAlert {
     display: flex;
-    flex-direction: row;
     background-color: #303030;
     transition: background-color .25s cubic-bezier(.43, 0, .2, 1);
 }
 
-.message:hover {
+div.Message:hover, div.MessageAlert:hover {
     background-color: #3b3b3b;
     transition: background-color .5s cubic-bezier(.81, .11, .23, .85);
     transition-delay: .25s;
+}
+
+div.Message {
+    flex-direction: row;
+}
+
+div.MessageAlert {
+    flex-direction: column;
+    align-items: center;
 }
 
 div.Messages {

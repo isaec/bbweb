@@ -158,17 +158,21 @@ class ComposeMessage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: ""
+            value: "",
+            lines: 1
         }
         this.handleChange = this.handleChange.bind(this)
     }
     handleChange(event) {
-        this.setState({ value: event.target.value })
+        this.setState({
+            value: event.target.value,
+            lines: Math.min(event.target.value.split(/\n/).length, 10)
+        })
     }
     render() {
         return <div className="ComposeMessage">
             <textarea
-                className="paste"
+                className="messageBox"
                 autoComplete="off"
                 autoCapitalize="none"
                 autoCorrect="on"
@@ -177,6 +181,7 @@ class ComposeMessage extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.value}
                 placeholder="type a message to the group"
+                rows={this.state.lines}
             ></textarea>
             <button
                 onClick={() => console.log(this.state.value)}

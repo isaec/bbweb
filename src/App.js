@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Connection from './connection';
 
+import MessageData from "./MessageData"
 
 const connection = new Connection()
 
@@ -215,7 +216,7 @@ class Chat extends React.Component {
         super(props)
         this.state = {
             messages: [
-                { id: 1, hue: 50, name: "bob", content: "my message is long, but you shall hear it" },
+                new MessageData(1, 50, "bob", "my message is long but you shall hear it"),
                 { id: 2, hue: 50, name: "bob", content: "even if you do not like it" },
                 { id: 3, hue: 170, name: "mark", content: "really?" },
                 { id: 4, hue: 0, name: "brad", content: "he lies!" },

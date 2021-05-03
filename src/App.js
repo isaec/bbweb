@@ -154,6 +154,39 @@ const Messages = props => {
     </div>
 }
 
+class ComposeMessage extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: ""
+        }
+        this.handleChange = this.handleChange.bind(this)
+    }
+    handleChange(event) {
+        this.setState({ value: event.target.value })
+    }
+    render() {
+        return <div className="ComposeMessage">
+            <textarea
+                className="paste"
+                autoComplete="off"
+                autoCapitalize="none"
+                autoCorrect="on"
+                spellCheck="true"
+
+                onChange={this.handleChange}
+                value={this.state.value}
+                placeholder="type a message to the group"
+            ></textarea>
+            <button
+                onClick={() => console.log(this.state.value)}
+                disabled={this.state.value.length < 1}
+            >send</button>
+        </div>
+    }
+}
+
+
 class Chat extends React.Component {
     constructor(props) {
         super(props)
@@ -168,23 +201,9 @@ class Chat extends React.Component {
         }
     }
     render() {
-        return <div
-            className="Chat"
-        >
-            <button
-                onClick={
-                    () => {
-                        const messages = this.state.messages.slice()
-                        messages.push({ id: 5, hue: 30, name: "test", content: "testing" })
-                        this.setState(
-                            {
-                                messages: messages
-                            }
-                        )
-                    }
-                }
-            >ye</button>
+        return <div className="Chat">
             <Messages messages={this.state.messages} />
+            <ComposeMessage />
         </div>
     }
 }

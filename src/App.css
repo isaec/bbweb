@@ -64,9 +64,12 @@ div.ConnectionHandler {
     flex-direction: row;
 }
 
+div.Message, div.MessageAlert, div.Messages {
+    background-color: #303030;
+}
+
 div.Message, div.MessageAlert {
     display: flex;
-    background-color: #303030;
     transition: background-color .25s cubic-bezier(.43, 0, .2, 1);
 }
 
@@ -91,12 +94,19 @@ div.Messages {
     height: 0px;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
 }
 
 div.Chat {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+}
+
+div.ComposeMessage {
+    display: flex;
+    flex-direction: row;
+    margin: .5vw 1vw 1vw;
 }
 
 .Avatar {

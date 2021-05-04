@@ -119,6 +119,20 @@ div.Messages > :first-child {
     margin-top: auto;
 }
 
+div.ChatHeader {
+    display: flex;
+    flex-direction: row;
+}
+
+div.ChatHeader > :first-child {
+    flex-grow: 1;
+}
+
+input.hue {
+    flex-grow: 1;
+    width: 100%;
+}
+
 div.Chat {
     display: flex;
     flex-direction: column;

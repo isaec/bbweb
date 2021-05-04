@@ -193,6 +193,36 @@ const ConnectionState = props =>
         <p>ice state: {props.ice}</p>
     </div>
 
+const IdentityEditor = props => <div
+    className="IdentityEditor"
+>
+    <Message
+        hue={props.hue}
+        name={props.name}
+        content={props.demoContent}
+    />
+    <input
+        type="range"
+        min="0"
+        max="360"
+        value={props.hue}
+        className="hue"
+    />
+</div>
+
+const ChatHeader = props => <div
+    className="ChatHeader"
+>
+    <IdentityEditor
+        hue={props.hue}
+        name={props.name}
+        demoContent={props.demoContent}
+    />
+    <ConnectionState
+        con={props.con}
+        ice={props.ice}
+    />
+</div>
 
 class Chat extends React.Component {
     constructor(props) {
@@ -224,9 +254,13 @@ class Chat extends React.Component {
     }
     render() {
         return <div className="Chat">
-            <ConnectionState
+            <ChatHeader
                 con={this.state.conState}
                 ice={this.state.iceState}
+
+                hue={20}
+                name={"test"}
+                demoContent={"my message is long, but you shall hear it"}
             />
             <Messages
                 messages={this.state.messages}

@@ -12,7 +12,7 @@ const Create = props => <div className="Create">
     <button
         onClick={async () => await props.fn()}
         disabled={props.result !== null}
-    >create {props.thing}
+    >create{props.result !== null ? "d" : ""} {props.thing}
     </button>
 </div>
 
@@ -44,7 +44,7 @@ class Accept extends React.Component {
             <button
                 onClick={async () => await this.props.fn(this.state.value)}
                 disabled={this.state.value.length < 1 || this.props.result !== null}
-            >accept {this.props.thing}
+            >accept{this.props.result !== null ? "ed" : ""} {this.props.thing}
             </button>
         </div>
     }

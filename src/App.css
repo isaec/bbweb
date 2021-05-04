@@ -124,14 +124,11 @@ div.ChatHeader {
     flex-direction: row;
 }
 
-div.ChatHeader > :first-child {
-    flex-grow: 1;
-}
-
 div.IdentityEditor {
     display: flex;
     flex-direction: column;
     padding: 1vw;
+    flex-grow: 1;
 }
 
 div.inputWrapper {

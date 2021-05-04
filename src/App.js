@@ -105,16 +105,24 @@ class ConnectionHandler extends React.Component {
     }
 }
 
-const hsl = hue => `hsl(${hue},90%,70%)`
+const hsl = (hue, sat, light) => `hsl(${hue},${sat || 90}%,${light || 70}%)`
 
 const Avatar = props =>
     <svg viewBox="0 0 100 100" className="Avatar">
         <circle cx="50" cy="50" r="50" fill={hsl(props.hue)} />
+        <text
+            x="50" y="50"
+            textAnchor="middle"
+            dominantBaseline="central"
+            fontSize="4em"
+            textLength="80"
+            fill={hsl(props.hue, null, 15)}
+        >{props.char}</text>
     </svg>
 
 const Message = props =>
     <div className="Message">
-        <Avatar hue={props.hue} />
+        <Avatar hue={props.hue} char={props.name[0]}/>
         <div className="messageText">
             <p className="name" style={{ color: hsl(props.hue) }}>{props.name}</p>
             <p className="messageContent">{props.content}</p>

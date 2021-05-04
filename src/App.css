@@ -63,6 +63,10 @@ textarea.messageBox:focus {
     background-color: #272727;
 }
 
+textarea.messageBox:disabled {
+    background-color: #131313;
+}
+
 textarea.paste:focus {
     background-color: #303030;
 }

@@ -165,6 +165,7 @@ class ComposeMessage extends React.Component {
         this.handleChange = this.handleChange.bind(this)
         this.keyDown = this.keyDown.bind(this)
         this.canSend = this.canSend.bind(this)
+        this.disabled = this.disabled.bind(this)
         this.send = this.send.bind(this)
     }
     handleChange(event) {
@@ -179,7 +180,8 @@ class ComposeMessage extends React.Component {
             e.preventDefault()
         }
     }
-    canSend() { return /\p{L}/u.test(this.state.value) && connection.rtc.connectionState === "connected" }
+    canSend() { return /\p{L}/u.test(this.state.value) && this.props.conState === "connected" }
+    disabled() { return this.props.conState !== "connected" }
     send() {
         this.setState({
             value: "",
@@ -196,6 +198,8 @@ class ComposeMessage extends React.Component {
                 autoCorrect="on"
                 spellCheck="true"
 
+                disabled={this.disabled()}
+
                 onChange={this.handleChange}
                 onKeyDown={this.keyDown}
                 value={this.state.value}
@@ -210,13 +214,26 @@ class ComposeMessage extends React.Component {
     }
 }
 
+const ConnectionState = props =>
+    <div className="ConnectionState">
+        <p>connection state: {props.con}</p>
+        <p>ice state: {props.ice}</p>
+    </div>
+
 
 class Chat extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            messages: []
+            messages: [],
+            conState: connection.rtc.connectionState,
+            iceState: connection.rtc.iceConnectionState
         }
+
+        connection.rtc.onconnectionstatechange = () => this.setState({ conState: connection.rtc.connectionState })
+        connection.rtc.oniceconnectionstatechange = () => this.setState({ iceState: connection.rtc.iceConnectionState })
+
+
         this.sendMessage = this.sendMessage.bind(this)
         connection.onMessageCallback = this.onMessage.bind(this)
     }
@@ -234,34 +251,25 @@ class Chat extends React.Component {
     }
     render() {
         return <div className="Chat">
-            <Messages messages={this.state.messages} />
-            <ComposeMessage send={this.sendMessage} />
+            <ConnectionState
+                con={this.state.conState}
+                ice={this.state.iceState}
+            />
+            <Messages
+                messages={this.state.messages}
+            />
+            <ComposeMessage
+                send={this.sendMessage}
+                conState={this.state.conState}
+            />
         </div>
     }
 }
 
-class ConnectionState extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            con: connection.rtc.connectionState,
-            ice: connection.rtc.iceConnectionState
-        }
-        connection.rtc.onconnectionstatechange = () => this.setState({ con: connection.rtc.connectionState })
-        connection.rtc.oniceconnectionstatechange = () => this.setState({ ice: connection.rtc.iceConnectionState })
-    }
-    render() {
-        return <div className="ConnectionState">
-            <p>connection state: {this.state.con}</p>
-            <p>ice state: {this.state.ice}</p>
-        </div>
-    }
-}
 
 function App() {
     return (
         <div className="App">
-            <ConnectionState />
             <ConnectionHandler />
             <Chat />
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './App.css';
 import Connection from './connection';
 
@@ -144,63 +144,47 @@ const Messages = props => {
     </div>
 }
 
-class ComposeMessage extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            value: "",
-            lines: 1
-        }
-        this.handleChange = this.handleChange.bind(this)
-        this.keyDown = this.keyDown.bind(this)
-        this.canSend = this.canSend.bind(this)
-        this.disabled = this.disabled.bind(this)
-        this.send = this.send.bind(this)
-    }
-    handleChange(event) {
-        this.setState({
-            value: event.target.value,
-            lines: Math.min(event.target.value.split(/\n/).length, 10)
-        })
-    }
-    keyDown(e) {
-        if (e.key === "Enter" && !e.shiftKey && this.canSend()) {
-            this.send()
-            e.preventDefault()
-        }
-    }
-    canSend() { return /\p{L}/u.test(this.state.value) && this.props.conState === "connected" }
-    disabled() { return this.props.conState !== "connected" }
-    send() {
-        this.setState({
-            value: "",
-            lines: 1
-        })
-        this.props.send(this.state.value)
-    }
-    render() {
-        return <div className="ComposeMessage">
-            <textarea
-                className="messageBox"
-                autoComplete="off"
-                autoCapitalize="none"
-                autoCorrect="on"
-                spellCheck="true"
+const ComposeMessage = props => {
+    let [value, setValue] = useState("")
 
-                disabled={this.disabled()}
+    const rows = useMemo(() => Math.min(value.split(/\n/).length, 10), [value])
+    const hasContent = useMemo(() => /\p{L}/u.test(value), [value])
 
-                onChange={this.handleChange}
-                onKeyDown={this.keyDown}
-                value={this.state.value}
-                placeholder="type a message to the group"
-                rows={this.state.lines}
-            ></textarea>
-            <button
-                onClick={this.send}
-                disabled={!this.canSend()}
-            >send</button>
-        </div>
+    const connected = props.conState === "connected"
+
+    const canSend = hasContent && connected
+
+    const send = () => {
+        setValue("")
+        props.send(value)
     }
+
+    return <div className="ComposeMessage">
+        <textarea
+            className="messageBox"
+            autoComplete="off"
+            autoCapitalize="sentences"
+            autoCorrect="on"
+            spellCheck="true"
+
+            disabled={!connected}
+
+            onChange={e => setValue(e.target.value)}
+            onKeyDown={e => {
+                if (e.key === "Enter" && !e.shiftKey && canSend) {
+                    e.preventDefault()
+                    send()
+                }
+            }}
+            value={value}
+            placeholder="type a message to the group"
+            rows={rows}
+        ></textarea>
+        <button
+            onClick={send}
+            disabled={!canSend}
+        >send</button>
+    </div>
 }
 
 const ConnectionState = props =>

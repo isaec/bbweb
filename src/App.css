@@ -113,7 +113,10 @@ div.Messages {
     height: 0px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+}
+
+div.Messages > :first-child {
+    margin-top: auto;
 }
 
 div.Chat {

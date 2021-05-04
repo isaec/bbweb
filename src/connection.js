@@ -6,14 +6,10 @@ export default class Connection {
 
         this.rtc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] })
 
-        this.rtc.ondatachannel = event => {
-            console.log("ondatachannel")
-            this.channel = event.channel
-            // this.channel.onopen = console.log
-            this.channel.onmessage = this.onMessage.bind(this)
-        }
+        this.rtc.ondatachannel = event => this.setChannel(event.channel)
 
         this.onMessageCallback = undefined
+        this.onMessage = this.onMessage.bind(this)
     }
     static ops = Object.freeze({
         createOffer: "createOffer",
@@ -24,6 +20,10 @@ export default class Connection {
     onMessage(e){
         if(this.onMessageCallback) this.onMessageCallback(e.data)
     }
+    setChannel(channel) {
+        this.channel = channel
+        channel.onmessage = this.onMessage
+    }
     async _localDescription(){
         return new Promise((resolve, reject) => {
             this.rtc.onicecandidate = event => {
@@ -32,7 +32,7 @@ export default class Connection {
         })
     }
     async createOffer() {
-        this.channel = this.rtc.createDataChannel("data")
+        this.setChannel(this.rtc.createDataChannel("data"))
         let localDescription = this._localDescription()
 
         const offer = await this.rtc.createOffer()

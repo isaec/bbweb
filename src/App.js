@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Connection from './connection';
 
@@ -17,37 +17,26 @@ const Create = props => <div className="Create">
 </div>
 
 
-class Accept extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            value: ""
-        }
-        this.handleChange = this.handleChange.bind(this)
-    }
-    handleChange(event) {
-        this.setState({ value: event.target.value })
-    }
-    render() {
-        return <div className="Accept">
-            <textarea
-                className="paste"
-                autoComplete="off"
-                autoCapitalize="none"
-                autoCorrect="off"
-                spellCheck="false"
+const Accept = props => {
+    const [value, setValue] = useState("")
+    return <div className="Accept">
+        <textarea
+            className="paste"
+            autoComplete="off"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck="false"
 
-                onChange={this.handleChange}
-                value={this.state.value}
-                placeholder={`paste the ${this.props.thing} here to accept it`}
-            ></textarea>
-            <button
-                onClick={async () => await this.props.fn(this.state.value)}
-                disabled={this.state.value.length < 1 || this.props.result !== null}
-            >accept{this.props.result !== null ? "ed" : ""} {this.props.thing}
-            </button>
-        </div>
-    }
+            onChange={e => setValue(e.target.value)}
+            value={value}
+            placeholder={`paste the ${props.thing} here to accept it`}
+        ></textarea>
+        <button
+            onClick={async () => await props.fn(value)}
+            disabled={value < 1 || props.result !== null}
+        >accept{props.result !== null ? "ed" : ""} {props.thing}
+        </button>
+    </div>
 }
 
 class ConnectionHandler extends React.Component {

@@ -145,7 +145,7 @@ const Messages = props => {
 }
 
 const ComposeMessage = props => {
-    let [value, setValue] = useState("")
+    const [value, setValue] = useState("")
 
     const rows = useMemo(() => Math.min(value.split(/\n/).length, 10), [value])
     const hasContent = useMemo(() => /\p{L}/u.test(value), [value])
@@ -224,55 +224,41 @@ const ChatHeader = props => <div
     />
 </div>
 
-class Chat extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            messages: [],
-            conState: connection.rtc.connectionState,
-            iceState: connection.rtc.iceConnectionState
-        }
+const Chat = props => {
 
-        connection.rtc.onconnectionstatechange = () => this.setState({ conState: connection.rtc.connectionState })
-        connection.rtc.oniceconnectionstatechange = () => this.setState({ iceState: connection.rtc.iceConnectionState })
+    const [messages, setMessages] = useState([])
+    const [conState, setConState] = useState(connection.rtc.connectionState)
+    const [iceState, setIceState] = useState(connection.rtc.iceConnectionState)
 
+    connection.rtc.onconnectionstatechange = () => setConState(connection.rtc.connectionState)
+    connection.rtc.oniceconnectionstatechange = () => setIceState(connection.rtc.iceConnectionState)
 
-        this.sendMessage = this.sendMessage.bind(this)
-        connection.onMessageCallback = this.onMessage.bind(this)
-    }
-    sendMessage(content) {
+    const sendMessage = content => {
         const message = new MessageData(50, "test", content)
-        this.setState({
-            messages: [...this.state.messages, message]
-        })
+        setMessages([...messages, message])
         connection.channel.send(JSON.stringify(message))
     }
-    onMessage(data) {
-        this.setState({
-            messages: [...this.state.messages, JSON.parse(data)]
-        })
-    }
-    render() {
-        return <div className="Chat">
-            <ChatHeader
-                con={this.state.conState}
-                ice={this.state.iceState}
 
-                hue={20}
-                name={"test"}
-                demoContent={"my message is long, but you shall hear it"}
-            />
-            <Messages
-                messages={this.state.messages}
-            />
-            <ComposeMessage
-                send={this.sendMessage}
-                conState={this.state.conState}
-            />
-        </div>
-    }
+    connection.onMessageCallback = data => setMessages([...messages, JSON.parse(data)])
+
+    return <div className="Chat">
+        <ChatHeader
+            con={conState}
+            ice={iceState}
+
+            hue={20}
+            name={"test"}
+            demoContent={"my message is long, but you shall hear it"}
+        />
+        <Messages
+            messages={messages}
+        />
+        <ComposeMessage
+            send={sendMessage}
+            conState={conState}
+        />
+    </div>
 }
-
 
 function App() {
     return (

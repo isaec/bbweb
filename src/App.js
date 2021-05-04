@@ -111,6 +111,7 @@ const Avatar = props =>
     <svg viewBox="0 0 100 100" className="Avatar">
         <circle cx="50" cy="50" r="50" fill={hsl(props.hue)} />
         <text
+            className="noselect"
             x="50" y="50"
             textAnchor="middle"
             dominantBaseline="central"
@@ -122,7 +123,7 @@ const Avatar = props =>
 
 const Message = props =>
     <div className="Message">
-        <Avatar hue={props.hue} char={props.name[0]}/>
+        <Avatar hue={props.hue} char={props.name[0]} />
         <div className="messageText">
             <p className="name" style={{ color: hsl(props.hue) }}>{props.name}</p>
             <p className="messageContent">{props.content}</p>
@@ -197,8 +198,8 @@ const ComposeMessage = props => {
 
 const ConnectionState = props =>
     <div className="ConnectionState">
-        <p>connection state: {props.con}</p>
-        <p>ice state: {props.ice}</p>
+        <p className="connection">connection state: {props.con}</p>
+        <p className="connection">ice state: {props.ice}</p>
     </div>
 
 const IdentityEditor = props => <div

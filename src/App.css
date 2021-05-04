@@ -56,7 +56,7 @@ textarea.messageBox {
     background-color: #242424;
     resize: none;
     /* height: min-content; */
-    transition: background-color .75s cubic-bezier(.55,.16,.44,.93);
+    transition: background-color .75s cubic-bezier(.55, .16, .44, .93);
 }
 
 textarea.messageBox:focus {
@@ -81,6 +81,20 @@ div.Create, div.Accept {
 div.ConnectionHandler {
     display: flex;
     flex-direction: row;
+}
+
+div.ConnectionState {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1vw;
+    background-color: #242424;
+    align-items: center;
+    justify-content: center;
+}
+
+p.connection {
+    margin: .25vw 0;
 }
 
 div.Message, div.MessageAlert, div.Messages {
@@ -115,7 +129,7 @@ div.Messages {
     flex-direction: column;
 }
 
-div.Messages > :first-child {
+div.Messages> :first-child {
     margin-top: auto;
 }
 
@@ -128,12 +142,16 @@ div.IdentityEditor {
     display: flex;
     flex-direction: column;
     padding: 1vw;
-    flex-grow: 1;
+    flex-grow: 2;
+    background-color: #131313;
 }
 
 div.inputWrapper {
     display: flex;
     flex-direction: row;
+    padding: .5vw;
+    background-color: #272727;
+    gap: .5vw;
 }
 
 input.hue {
@@ -167,4 +185,13 @@ div.ComposeMessage {
 
 .name, .messageContent {
     margin: .2vw .5vw;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

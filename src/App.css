@@ -1,6 +1,6 @@
 p, button, code, textarea, label {
     color: #dcddde;
-    font-size: 1vw;
+    font-size: 1rem;
 }
 
 .App {
@@ -11,8 +11,7 @@ p, button, code, textarea, label {
 
 button {
     background-color: #3b3b3b;
-    /* margin: .5vw; */
-    padding: 1vw;
+    padding: 1rem;
     transition: background-color 1s cubic-bezier(.57, .05, .09, .95), color 1s cubic-bezier(.57, .05, .09, .95);
     border: none;
 }
@@ -35,10 +34,10 @@ button:enabled:active {
 code.copy, textarea.paste {
     flex: 1 1 12em;
     word-break: break-all;
-    padding: .5vw;
+    padding: .5rem;
     user-select: all;
     background-color: #242424;
-    font: 1vw monospace;
+    font: 1rem monospace;
 }
 
 textarea.paste {
@@ -52,7 +51,7 @@ textarea.messageBox {
     border: none;
     outline: none;
     flex-grow: 1;
-    padding: 1vw;
+    padding: 1rem;
     background-color: #242424;
     resize: none;
     /* height: min-content; */
@@ -87,14 +86,14 @@ div.ConnectionState {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 1vw;
+    padding: 1rem;
     background-color: #242424;
     align-items: center;
     justify-content: center;
 }
 
 p.connection {
-    margin: .25vw 0;
+    margin: .25rem 0;
 }
 
 div.Message, div.MessageAlert, div.Messages {
@@ -141,7 +140,7 @@ div.ChatHeader {
 div.IdentityEditor {
     display: flex;
     flex-direction: column;
-    padding: 1vw;
+    padding: 1rem;
     flex-grow: 2;
     background-color: #131313;
 }
@@ -149,9 +148,9 @@ div.IdentityEditor {
 div.inputWrapper {
     display: flex;
     flex-direction: row;
-    padding: .5vw;
+    padding: .5rem;
     background-color: #272727;
-    gap: .5vw;
+    gap: .5rem;
 }
 
 input.hue {
@@ -168,13 +167,13 @@ div.Chat {
 div.ComposeMessage {
     display: flex;
     flex-direction: row;
-    margin: .5vw 1vw 1vw;
+    margin: .5rem 1rem 1rem;
 }
 
 .Avatar {
     flex-shrink: 1;
-    flex-basis: 2.5vw;
-    margin: .5vw;
+    flex-basis: 2.5rem;
+    margin: .5rem;
 }
 
 .messageText {
@@ -184,7 +183,7 @@ div.ComposeMessage {
 }
 
 .name, .messageContent {
-    margin: .2vw .5vw;
+    margin: .2rem .5rem;
 }
 
 .noselect {

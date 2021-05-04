@@ -201,21 +201,31 @@ const IdentityEditor = props => <div
         name={props.name}
         content={props.demoContent}
     />
-    <input
-        type="range"
-        min="0"
-        max="360"
-        value={props.hue}
-        className="hue"
-    />
+    <div
+        className="inputWrapper"
+    >
+        <label
+            htmlFor="hue"
+        >hue</label>
+        <input
+            type="range"
+            name="hue"
+            min="0"
+            max="360"
+            value={props.hue}
+            className="hue"
+
+            onChange={e => props.setHue(e.target.value)}
+        />
+    </div>
 </div>
 
 const ChatHeader = props => <div
     className="ChatHeader"
 >
     <IdentityEditor
-        hue={props.hue}
-        name={props.name}
+        hue={props.hue} setHue={props.setHue}
+        name={props.name} setName={props.setName}
         demoContent={props.demoContent}
     />
     <ConnectionState
@@ -227,14 +237,18 @@ const ChatHeader = props => <div
 const Chat = props => {
 
     const [messages, setMessages] = useState([])
+
     const [conState, setConState] = useState(connection.rtc.connectionState)
     const [iceState, setIceState] = useState(connection.rtc.iceConnectionState)
+
+    const [hue, setHue] = useState(20)
+    const [name, setName] = useState("test")
 
     connection.rtc.onconnectionstatechange = () => setConState(connection.rtc.connectionState)
     connection.rtc.oniceconnectionstatechange = () => setIceState(connection.rtc.iceConnectionState)
 
     const sendMessage = content => {
-        const message = new MessageData(50, "test", content)
+        const message = new MessageData(hue, name, content)
         setMessages([...messages, message])
         connection.channel.send(JSON.stringify(message))
     }
@@ -246,8 +260,9 @@ const Chat = props => {
             con={conState}
             ice={iceState}
 
-            hue={20}
-            name={"test"}
+            hue={hue} setHue={setHue}
+            name={name} setName={setName}
+
             demoContent={"my message is long, but you shall hear it"}
         />
         <Messages

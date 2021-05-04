@@ -1,4 +1,4 @@
-p, button, code, textarea {
+p, button, code, textarea, label {
     color: #dcddde;
     font-size: 1vw;
 }
@@ -126,6 +126,17 @@ div.ChatHeader {
 
 div.ChatHeader > :first-child {
     flex-grow: 1;
+}
+
+div.IdentityEditor {
+    display: flex;
+    flex-direction: column;
+    padding: 1vw;
+}
+
+div.inputWrapper {
+    display: flex;
+    flex-direction: row;
 }
 
 input.hue {

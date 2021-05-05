@@ -47,26 +47,17 @@ const ConnectionHandler = props => {
     const [remoteOffer, setRemoteOffer] = useState(null)
     const [remoteAnswer, setRemoteAnswer] = useState(null)
 
-    const modify = async (thing, data) => {
-        switch (thing) {
-            case Connection.ops.createOffer:
-                setLocalOffer(await connection.createOffer())
-                break
-            case Connection.ops.createAnswer:
-                setLocalAnswer(await connection.createAnswer())
-                break
-            case Connection.ops.acceptOffer:
-                connection.acceptRemote(data)
-                setRemoteOffer(data)
-                setLocalAnswer(await connection.createAnswer())
-                break
-            case Connection.ops.acceptAnswer:
-                connection.acceptRemote(data)
-                setRemoteAnswer(data)
-                break
-            default:
-                console.log(thing, data)
-        }
+    const createOffer = async () => setLocalOffer(await connection.createOffer())
+    const createAnswer = async () => setLocalAnswer(await connection.createAnswer())
+
+    const acceptOffer = async offer => {
+        connection.acceptRemote(offer)
+        setRemoteOffer(offer)
+        setLocalAnswer(await connection.createAnswer())
+    }
+    const acceptAnswer = answer => {
+        connection.acceptRemote(answer)
+        setRemoteAnswer(answer)
     }
 
 
@@ -75,26 +66,26 @@ const ConnectionHandler = props => {
             <Create
                 thing="offer"
                 result={localOffer}
-                fn={modify.bind(this, Connection.ops.createOffer)}
+                fn={createOffer}
             />
             :
             <Create
                 thing="answer"
                 result={localAnswer}
-                fn={modify.bind(this, Connection.ops.createAnswer)}
+                fn={createAnswer}
             />
         }
         {localOffer === null ?
             <Accept
                 thing="offer"
                 result={remoteOffer}
-                fn={modify.bind(this, Connection.ops.acceptOffer)}
+                fn={acceptOffer}
             />
             :
             <Accept
                 thing="answer"
                 result={remoteAnswer}
-                fn={modify.bind(this, Connection.ops.acceptAnswer)}
+                fn={acceptAnswer}
             />
         }
     </div>

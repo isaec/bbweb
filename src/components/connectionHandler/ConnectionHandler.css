@@ -1,0 +1,33 @@
+code.copy, textarea.paste {
+    flex: 1 1 12em;
+    word-break: break-all;
+    padding: .5rem;
+    user-select: all;
+    background-color: #242424;
+    font: 1rem monospace;
+    overflow-y: auto;
+}
+
+textarea.paste {
+    border: none;
+    resize: none;
+    outline: none;
+    transition: background-color .25s cubic-bezier(.8, .19, .25, .94);
+}
+
+textarea.paste:focus {
+    background-color: #303030;
+}
+
+div.Create, div.Accept {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+    width: 0;
+}
+
+div.ConnectionHandler {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

@@ -1,9 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import './App.css'
-import "./common.css"
+import "../../common.css"
 import "./Chat.css"
 
-import MessageData from "./MessageData"
+import MessageData from "../../MessageData"
 
 const hsl = (hue, sat, light) => `hsl(${hue},${sat || 90}%,${light || 70}%)`
 

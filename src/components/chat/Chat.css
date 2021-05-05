@@ -76,3 +76,37 @@ div.ComposeMessage {
 .name, .messageContent {
     margin: .2rem .5rem;
 }
+
+
+div.ConnectionState {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+    background-color: #242424;
+    align-items: center;
+    justify-content: center;
+}
+
+p.connection {
+    margin: .25rem 0;
+}
+
+textarea.messageBox {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    padding: 1rem;
+    background-color: #242424;
+    resize: none;
+    /* height: min-content; */
+    transition: background-color .75s cubic-bezier(.55, .16, .44, .93);
+}
+
+textarea.messageBox:focus {
+    background-color: #272727;
+}
+
+textarea.messageBox:disabled {
+    background-color: #131313;
+}

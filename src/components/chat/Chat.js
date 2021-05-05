@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import "../../common.css"
 import "./Chat.css"
+import IdentityEditor from "./IdentityEditor"
 
 import MessageData from "../../MessageData"
 
@@ -101,33 +102,6 @@ const ConnectionState = props =>
         <p className="connection">ice state: {props.ice}</p>
     </div>
 
-const IdentityEditor = props => <div
-    className="IdentityEditor"
->
-    <Message
-        hue={props.hue}
-        name={props.name}
-        content={props.demoContent}
-    />
-    <div
-        className="inputWrapper"
-    >
-        <label
-            htmlFor="hue"
-        >hue</label>
-        <input
-            type="range"
-            name="hue"
-            min="0"
-            max="360"
-            value={props.hue}
-            className="hue"
-
-            onChange={e => props.setHue(e.target.value)}
-        />
-    </div>
-</div>
-
 const ChatHeader = props => <div
     className="ChatHeader"
 >
@@ -183,4 +157,4 @@ const Chat = props => {
     </div>
 }
 
-export default Chat
+export {Chat, Message}

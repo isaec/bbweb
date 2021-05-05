@@ -1,0 +1,12 @@
+div.inputWrapper {
+    display: flex;
+    flex-direction: row;
+    padding: .5rem;
+    background-color: #272727;
+    gap: .5rem;
+}
+
+input.hue {
+    flex-grow: 1;
+    width: 100%;
+}

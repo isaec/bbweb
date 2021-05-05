@@ -1,0 +1,48 @@
+p, button, code, textarea, label {
+    color: #dcddde;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #3b3b3b;
+    padding: 1rem;
+    transition: background-color 1s cubic-bezier(.57, .05, .09, .95), color 1s cubic-bezier(.57, .05, .09, .95);
+    border: none;
+}
+
+button:disabled {
+    background-color: #131313;
+    color: #8e9195;
+    transition-duration: .5s;
+}
+
+button:enabled:hover {
+    background-color: #272727;
+}
+
+button:enabled:active {
+    background-color: #080808;
+    transition: background-color .2s cubic-bezier(.2, .83, .23, .88), color .2s cubic-bezier(.2, .83, .23, .88)
+}
+
+div.inputWrapper {
+    display: flex;
+    flex-direction: row;
+    padding: .5rem;
+    background-color: #272727;
+    gap: .5rem;
+}
+
+input.hue {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

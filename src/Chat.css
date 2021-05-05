@@ -1,0 +1,78 @@
+div.Message, div.MessageAlert, div.Messages {
+    background-color: #303030;
+}
+
+div.Message, div.MessageAlert {
+    display: flex;
+    transition: background-color .25s cubic-bezier(.43, 0, .2, 1);
+}
+
+div.Message:hover, div.MessageAlert:hover {
+    background-color: #3b3b3b;
+    transition: background-color .5s cubic-bezier(.81, .11, .23, .85);
+    transition-delay: .25s;
+}
+
+div.Message {
+    flex-direction: row;
+}
+
+div.MessageAlert {
+    flex-direction: column;
+    align-items: center;
+}
+
+div.Messages {
+    overflow-y: auto;
+    flex: 1 1 auto;
+    height: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+div.Messages> :first-child {
+    margin-top: auto;
+}
+
+div.ChatHeader {
+    display: flex;
+    flex-direction: row;
+}
+
+div.IdentityEditor {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    flex-grow: 2;
+    background-color: #131313;
+}
+
+
+div.Chat {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+div.ComposeMessage {
+    display: flex;
+    flex-direction: row;
+    margin: .5rem 1rem 1rem;
+}
+
+.Avatar {
+    flex-shrink: 1;
+    flex-basis: 2.5rem;
+    margin: .5rem;
+    align-self: flex-start;
+}
+
+.messageText {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.name, .messageContent {
+    margin: .2rem .5rem;
+}

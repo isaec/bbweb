@@ -39,71 +39,134 @@ const Accept = props => {
     </div>
 }
 
-class ConnectionHandler extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            localOffer: null,
-            localAnswer: null,
-            remoteOffer: null,
-            remoteAnswer: null
-        }
-    }
+const ConnectionHandler = props => {
 
-    async do(thing, data) {
+    const [localOffer, setLocalOffer] = useState(null)
+    const [localAnswer, setLocalAnswer] = useState(null)
+
+    const [remoteOffer, setRemoteOffer] = useState(null)
+    const [remoteAnswer, setRemoteAnswer] = useState(null)
+
+    const modify = async (thing, data) => {
         switch (thing) {
             case Connection.ops.createOffer:
-                const offer = await connection.createOffer()
-                this.setState({ localOffer: offer })
+                setLocalOffer(await connection.createOffer())
                 break
             case Connection.ops.createAnswer:
-                const answer = await connection.createAnswer()
-                this.setState({ localAnswer: answer })
+                setLocalAnswer(await connection.createAnswer())
                 break
             case Connection.ops.acceptOffer:
                 connection.acceptRemote(data)
-                this.setState({ remoteOffer: data })
+                setRemoteOffer(data)
+                setLocalAnswer(await connection.createAnswer())
                 break
             case Connection.ops.acceptAnswer:
                 connection.acceptRemote(data)
-                this.setState({ remoteAnswer: data })
+                setRemoteAnswer(data)
                 break
             default:
                 console.log(thing, data)
         }
     }
 
-    render() {
-        return <div className="ConnectionHandler">
-            {this.state.remoteOffer === null ?
-                <Create
-                    thing="offer"
-                    result={this.state.localOffer}
-                    fn={this.do.bind(this, Connection.ops.createOffer)}
-                />
-                :
-                <Create
-                    thing="answer"
-                    result={this.state.localAnswer}
-                    fn={this.do.bind(this, Connection.ops.createAnswer)}
-                />
-            }
-            {this.state.localOffer === null ?
-                <Accept
-                    thing="offer"
-                    result={this.state.remoteOffer}
-                    fn={this.do.bind(this, Connection.ops.acceptOffer)}
-                />
-                :
-                <Accept
-                    thing="answer"
-                    result={this.state.remoteAnswer}
-                    fn={this.do.bind(this, Connection.ops.acceptAnswer)}
-                />
-            }
-        </div>
-    }
+
+    return <div className="ConnectionHandler">
+        {remoteOffer === null ?
+            <Create
+                thing="offer"
+                result={localOffer}
+                fn={modify.bind(this, Connection.ops.createOffer)}
+            />
+            :
+            <Create
+                thing="answer"
+                result={localAnswer}
+                fn={modify.bind(this, Connection.ops.createAnswer)}
+            />
+        }
+        {localOffer === null ?
+            <Accept
+                thing="offer"
+                result={remoteOffer}
+                fn={modify.bind(this, Connection.ops.acceptOffer)}
+            />
+            :
+            <Accept
+                thing="answer"
+                result={remoteAnswer}
+                fn={modify.bind(this, Connection.ops.acceptAnswer)}
+            />
+        }
+    </div>
 }
+
+// class ConnectionHandler extends React.Component {
+//     constructor(props) {
+//         super(props)
+//         this.state = {
+//             localOffer: null,
+//             localAnswer: null,
+//             remoteOffer: null,
+//             remoteAnswer: null
+//         }
+//     }
+
+// async do(thing, data) {
+//     switch (thing) {
+//         case Connection.ops.createOffer:
+//             const offer = await connection.createOffer()
+//             this.setState({ localOffer: offer })
+//             break
+//         case Connection.ops.createAnswer:
+//             alert("unused path")
+//             const answer = await connection.createAnswer()
+//             this.setState({ localAnswer: answer })
+//             break
+//         case Connection.ops.acceptOffer:
+//             connection.acceptRemote(data)
+//             const answer = await connection.createAnswer()
+//             this.setState({ remoteOffer: data, localAnswer: })
+//             break
+//         case Connection.ops.acceptAnswer:
+//             connection.acceptRemote(data)
+//             this.setState({ remoteAnswer: data })
+//             break
+//         default:
+//             console.log(thing, data)
+//     }
+// }
+
+//     render() {
+//         return <div className="ConnectionHandler">
+//             {this.state.remoteOffer === null ?
+//                 <Create
+//                     thing="offer"
+//                     result={this.state.localOffer}
+//                     fn={this.do.bind(this, Connection.ops.createOffer)}
+//                 />
+//                 :
+//                 <Create
+//                     thing="answer"
+//                     result={this.state.localAnswer}
+//                     fn={this.do.bind(this, Connection.ops.createAnswer)}
+//                 />
+//             }
+//             {this.state.localOffer === null ?
+//                 <Accept
+//                     thing="offer"
+//                     result={this.state.remoteOffer}
+//                     fn={this.do.bind(this, Connection.ops.acceptOffer)}
+//                 />
+//                 :
+//                 <Accept
+//                     thing="answer"
+//                     result={this.state.remoteAnswer}
+//                     fn={this.do.bind(this, Connection.ops.acceptAnswer)}
+//                 />
+//             }
+//         </div>
+//     }
+// }
 
 const hsl = (hue, sat, light) => `hsl(${hue},${sat || 90}%,${light || 70}%)`
 

@@ -1,47 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../../common.css"
 import "./IdentityEditor.css"
 
 import { Message } from "./Chat"
 
-const IdentityEditor = props => <div
-    className="IdentityEditor"
->
-    <Message
-        hue={props.hue}
-        name={props.name}
-        content={props.demoContent}
-    />
-    <div className="inputBlock">
-        <div className="inputWrapper">
-            <label
-                htmlFor="nameText"
-            >name</label>
-            <input
-                type="text"
-                name="name" id="nameText"
-                value={props.name}
-                className="name"
+const IdentityEditor = props => {
 
-                onChange={e => props.setName(e.target.value || "tom riddle")}
-            />
-        </div>
-        <div className="inputWrapper grow">
-            <label
-                htmlFor="hueRange"
-            >hue</label>
-            <input
-                type="range"
-                name="hue" id="hueRange"
-                min="0"
-                max="360"
-                value={props.hue}
-                className="hue"
+    const [temp, setTemp] = useState(props.name)
 
-                onChange={e => props.setHue(e.target.value)}
-            />
+
+    return <div
+        className="IdentityEditor"
+    >
+        <Message
+            hue={props.hue}
+            name={props.name}
+            content={props.demoContent}
+        />
+        <div className="inputBlock">
+            <div className="inputWrapper">
+                <label
+                    htmlFor="nameText"
+                >name</label>
+                <input
+                    type="text"
+                    name="name" id="nameText"
+                    value={temp}
+                    className="name"
+
+                    onChange={e => {
+                        setTemp(e.target.value)
+                        props.setName(e.target.value.length > 0 ? e.target.value : "tom riddle")
+                    }}
+                />
+            </div>
+            <div className="inputWrapper grow">
+                <label
+                    htmlFor="hueRange"
+                >hue</label>
+                <input
+                    type="range"
+                    name="hue" id="hueRange"
+                    min="0"
+                    max="360"
+                    value={props.hue}
+                    className="hue"
+
+                    onChange={e => props.setHue(e.target.value)}
+                />
+            </div>
         </div>
     </div>
-</div>
+}
 
 export default IdentityEditor

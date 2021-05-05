@@ -38,6 +38,7 @@ code.copy, textarea.paste {
     user-select: all;
     background-color: #242424;
     font: 1rem monospace;
+    overflow-y: auto;
 }
 
 textarea.paste {
@@ -80,6 +81,7 @@ div.Create, div.Accept {
 div.ConnectionHandler {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 div.ConnectionState {
@@ -174,6 +176,7 @@ div.ComposeMessage {
     flex-shrink: 1;
     flex-basis: 2.5rem;
     margin: .5rem;
+    align-self: flex-start;
 }
 
 .messageText {

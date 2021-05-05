@@ -14,6 +14,19 @@ const IdentityEditor = props => <div
     />
     <div className="inputWrapper">
         <label
+            htmlFor="nameText"
+        >name</label>
+        <input
+            type="text"
+            name="name" id="nameText"
+            value={props.name}
+            className="name"
+
+            onChange={e => props.setName(e.target.value || "tom riddle")}
+        />
+    </div>
+    <div className="inputWrapper">
+        <label
             htmlFor="hueRange"
         >hue</label>
         <input

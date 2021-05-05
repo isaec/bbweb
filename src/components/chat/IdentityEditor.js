@@ -12,33 +12,35 @@ const IdentityEditor = props => <div
         name={props.name}
         content={props.demoContent}
     />
-    <div className="inputWrapper">
-        <label
-            htmlFor="nameText"
-        >name</label>
-        <input
-            type="text"
-            name="name" id="nameText"
-            value={props.name}
-            className="name"
+    <div className="inputBlock">
+        <div className="inputWrapper">
+            <label
+                htmlFor="nameText"
+            >name</label>
+            <input
+                type="text"
+                name="name" id="nameText"
+                value={props.name}
+                className="name"
 
-            onChange={e => props.setName(e.target.value || "tom riddle")}
-        />
-    </div>
-    <div className="inputWrapper">
-        <label
-            htmlFor="hueRange"
-        >hue</label>
-        <input
-            type="range"
-            name="hue" id="hueRange"
-            min="0"
-            max="360"
-            value={props.hue}
-            className="hue"
+                onChange={e => props.setName(e.target.value || "tom riddle")}
+            />
+        </div>
+        <div className="inputWrapper grow">
+            <label
+                htmlFor="hueRange"
+            >hue</label>
+            <input
+                type="range"
+                name="hue" id="hueRange"
+                min="0"
+                max="360"
+                value={props.hue}
+                className="hue"
 
-            onChange={e => props.setHue(e.target.value)}
-        />
+                onChange={e => props.setHue(e.target.value)}
+            />
+        </div>
     </div>
 </div>
 

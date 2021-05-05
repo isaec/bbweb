@@ -4,9 +4,19 @@ div.inputWrapper {
     padding: .5rem;
     background-color: #272727;
     gap: .5rem;
+    align-items: center;
+}
+
+div.grow {
+    flex-grow: 1;
 }
 
 input.hue {
     flex-grow: 1;
     width: 100%;
+}
+
+div.inputBlock {
+    display: flex;
+    flex-direction: row;
 }

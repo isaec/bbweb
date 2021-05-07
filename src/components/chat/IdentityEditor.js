@@ -30,7 +30,7 @@ const IdentityEditor = props => {
 
                     autoComplete="off"
                     autoCorrect="off"
-                    autoCapitalize="false"
+                    autoCapitalize="off"
                     spellCheck="false"
                     placeholder="tom riddle"
 

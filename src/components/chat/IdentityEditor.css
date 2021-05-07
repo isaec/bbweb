@@ -35,4 +35,5 @@ input.name:focus {
 div.inputBlock {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }

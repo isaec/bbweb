@@ -37,6 +37,7 @@ div.Messages> :first-child {
 div.ChatHeader {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 div.IdentityEditor {

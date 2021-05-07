@@ -34,6 +34,8 @@ const IdentityEditor = props => {
                     spellCheck="false"
                     placeholder="tom riddle"
 
+                    maxLength="16" size="16"
+
                     onChange={e => {
                         setTemp(e.target.value)
                         props.setName(e.target.value.length > 0 ? e.target.value : "tom riddle")

@@ -1,3 +1,7 @@
+div.IdentityEditor> :first-child {
+    padding: .5rem 0;
+}
+
 div.inputWrapper {
     display: flex;
     flex-direction: row;
@@ -14,6 +18,18 @@ div.grow {
 input.hue {
     flex-grow: 1;
     width: 100%;
+}
+
+input.name {
+    border: none;
+    padding: .5rem;
+    background-color: #1f1f1f;
+    transition: background-color .25s cubic-bezier(.8, .19, .25, .94);
+}
+
+input.name:focus {
+    outline: none;
+    background-color: #303030;
 }
 
 div.inputBlock {

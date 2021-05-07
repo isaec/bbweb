@@ -123,8 +123,8 @@ const Chat = props => {
     const [conState, setConState] = useState(props.conn.rtc.connectionState)
     const [iceState, setIceState] = useState(props.conn.rtc.iceConnectionState)
 
-    const [hue, setHue] = useState(20)
-    const [name, setName] = useState("test")
+    const [hue, setHue] = useState(Math.floor(Math.random() * 359))
+    const [name, setName] = useState(`user${(Math.floor(Math.random() * 999)).toString().padStart(3, "0")}`)
 
     props.conn.rtc.onconnectionstatechange = () => setConState(props.conn.rtc.connectionState)
     props.conn.rtc.oniceconnectionstatechange = () => setIceState(props.conn.rtc.iceConnectionState)
@@ -157,4 +157,4 @@ const Chat = props => {
     </div>
 }
 
-export {Chat, Message}
+export { Chat, Message }

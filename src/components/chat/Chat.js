@@ -58,7 +58,7 @@ const ComposeMessage = props => {
     const [value, setValue] = useState("")
 
     const rows = useMemo(() => Math.min(value.split(/\n/).length, 10), [value])
-    const hasContent = useMemo(() => /\p{L}/u.test(value), [value])
+    const hasContent = useMemo(() => /\S/u.test(value), [value])
 
     const connected = props.conState === "connected"
 

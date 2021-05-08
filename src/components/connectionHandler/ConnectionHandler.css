@@ -1,5 +1,5 @@
 code.copy, textarea.paste {
-    flex: 1 1 12em;
+    flex: 1 1 auto;
     word-break: break-all;
     padding: .5rem;
     user-select: all;
@@ -30,4 +30,5 @@ div.ConnectionHandler {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    flex: 1 1 auto;
 }

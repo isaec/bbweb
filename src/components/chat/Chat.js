@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import "../../common.css"
 import "./Chat.css"
 import IdentityEditor from "./IdentityEditor"
@@ -37,7 +37,7 @@ const MessageAlert = props =>
         >{props.content}</p>
     </div>
 
-const Messages = props => {
+const Messages = React.forwardRef((props, ref) => {
     const messageList = props.messages.map(
         message =>
             <Message
@@ -50,8 +50,9 @@ const Messages = props => {
     return <div className="Messages">
         <MessageAlert hue="40" content="local history begins" />
         {messageList}
+        <div ref={ref} />
     </div>
-}
+})
 
 const ComposeMessage = props => {
     const [value, setValue] = useState("")
@@ -126,16 +127,24 @@ const Chat = props => {
     const [hue, setHue] = useState(Math.floor(Math.random() * 359))
     const [name, setName] = useState(`user${(Math.floor(Math.random() * 999)).toString().padStart(3, "0")}`)
 
+    const messagesBottom = useRef()
+
     props.conn.rtc.onconnectionstatechange = () => setConState(props.conn.rtc.connectionState)
     props.conn.rtc.oniceconnectionstatechange = () => setIceState(props.conn.rtc.iceConnectionState)
+
+    const scrollToBottom = () => requestAnimationFrame(() => messagesBottom.current.scrollIntoView({ behavior: "smooth" }))
 
     const sendMessage = content => {
         const message = new MessageData(hue, name, content)
         setMessages([...messages, message])
         props.conn.channel.send(JSON.stringify(message))
+        scrollToBottom()
     }
 
-    props.conn.onMessageCallback = data => setMessages([...messages, JSON.parse(data)])
+    props.conn.onMessageCallback = data => {
+        setMessages([...messages, JSON.parse(data)])
+        scrollToBottom()
+    }
 
     return <div className="Chat">
         <ChatHeader
@@ -149,6 +158,7 @@ const Chat = props => {
         />
         <Messages
             messages={messages}
+            ref={messagesBottom}
         />
         <ComposeMessage
             send={sendMessage}

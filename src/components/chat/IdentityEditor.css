@@ -27,6 +27,10 @@ input.name {
     transition: background-color .25s cubic-bezier(.8, .19, .25, .94);
 }
 
+input.name:hover {
+    background-color: #212121;
+}
+
 input.name:focus {
     outline: none;
     background-color: #303030;

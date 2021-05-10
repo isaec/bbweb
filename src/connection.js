@@ -17,14 +17,14 @@ export default class Connection {
         acceptOffer: "acceptOffer",
         acceptAnswer: "acceptAnswer"
     })
-    onMessage(e){
-        if(this.onMessageCallback) this.onMessageCallback(e.data)
+    onMessage(e) {
+        if (this.onMessageCallback) this.onMessageCallback(e.data)
     }
     setChannel(channel) {
         this.channel = channel
         channel.onmessage = this.onMessage
     }
-    async _localDescription(){
+    async _localDescription() {
         return new Promise((resolve, reject) => {
             this.rtc.onicecandidate = event => {
                 if (!event.candidate) resolve(JSON.stringify(this.rtc.localDescription))
@@ -53,5 +53,11 @@ export default class Connection {
     async acceptRemote(remote) {
         const remoteObj = JSON.parse(remote)
         await this.rtc.setRemoteDescription(remoteObj)
+    }
+    validate(str, type) {
+        let json
+        try { json = JSON.parse(str) }
+        catch (e) { return false }
+        return Object.keys(json).length === 2 && json.type === type && json.sdp !== undefined
     }
 }

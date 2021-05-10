@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import "../../common.css"
 import "./ConnectionHandler.css"
 
@@ -14,6 +14,18 @@ const Create = props => <div className="Create">
 
 const Accept = props => {
     const [value, setValue] = useState("")
+    const valid = useMemo(
+        () =>
+            props.validate(value, props.thing) && props.result === null,
+        [value, props]
+    )
+    const fn = props.fn
+    useEffect(() => {
+        if (valid) {
+            const accept = async () => await fn(value)
+            accept()
+        }
+    }, [valid, fn, value])
     return <div className="Accept">
         <textarea
             className="paste"
@@ -23,12 +35,12 @@ const Accept = props => {
             spellCheck="false"
 
             onChange={e => setValue(e.target.value)}
-            value={value}
+            value={props.value}
             placeholder={`paste the ${props.thing} here to accept it`}
         ></textarea>
         <button
-            onClick={async () => await props.fn(value)}
-            disabled={value < 1 || props.result !== null}
+            onClick={async () => await fn(value)}
+            disabled={!valid}
         >accept{props.result !== null ? "ed" : ""} {props.thing}
         </button>
     </div>
@@ -75,12 +87,14 @@ const ConnectionHandler = props => {
                 thing="offer"
                 result={remoteOffer}
                 fn={acceptOffer}
+                validate={props.conn.validate}
             />
             :
             <Accept
                 thing="answer"
                 result={remoteAnswer}
                 fn={acceptAnswer}
+                validate={props.conn.validate}
             />
         }
     </div>

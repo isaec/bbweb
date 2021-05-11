@@ -22,8 +22,7 @@ const Accept = props => {
     const fn = props.fn
     useEffect(() => {
         if (valid) {
-            const accept = async () => await fn(value)
-            accept()
+            fn(value)
         }
     }, [valid, fn, value])
     return <div className="Accept">

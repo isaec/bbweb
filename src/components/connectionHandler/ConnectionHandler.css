@@ -1,6 +1,5 @@
 code.copy, textarea.paste {
-    height: 0px;
-    flex: 1 1 0px;
+    flex: 1 1 auto;
     word-break: break-all;
     padding: .5rem;
     user-select: all;
@@ -23,10 +22,10 @@ textarea.paste:focus {
 div.Create, div.Accept {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 div.ConnectionHandler {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* height: 0px; */
 }

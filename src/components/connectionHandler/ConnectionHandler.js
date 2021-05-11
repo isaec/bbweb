@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import useAnimState from "../../useAnimState"
 import "../../common.css"
 import "./ConnectionHandler.css"
 
@@ -46,16 +47,10 @@ const Accept = props => {
 }
 
 const ConnectionStep = props => {
-    const [pop, setPop] = useState(0)
-    const [step, setStep] = useState(props.step)
-
-    if (props.step !== step) {
-        setStep(props.step)
-        setPop(1)
-    }
+    const [pop, endPop] = useAnimState(props.step)
 
     let instruct
-    switch (step) {
+    switch (props.step) {
         case 1:
             instruct = "create or accept an offer"
             break
@@ -71,9 +66,9 @@ const ConnectionStep = props => {
     return <p
         className="ConnectionStep"
 
-        onAnimationEnd={() => setPop(0)}
+        onAnimationEnd={endPop}
         pop={pop}
-    >step {step}: {instruct}</p>
+    >step {props.step}: {instruct}</p>
 }
 
 const ConnectionHandler = props => {

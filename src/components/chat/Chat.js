@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef } from 'react';
+import useAnimState from "../../useAnimState"
 import "../../common.css"
 import "./Chat.css"
 import IdentityEditor from "./IdentityEditor"
@@ -97,16 +98,12 @@ const ComposeMessage = props => {
 }
 
 const ConnectionState = props => {
-    const [bubble, setBubble] = useState(0)
-    const [oldCon, setOldCon] = useState(props.con + props.ice)
-    if (props.con + props.ice !== oldCon) {
-        setOldCon(props.con + props.ice)
-        setBubble(1)
-    }
+    const [bubble, endBubble] = useAnimState(props.con + props.ice)
+
     return <div
         className="ConnectionState"
 
-        onAnimationEnd={() => setBubble(0)}
+        onAnimationEnd={endBubble}
         bubble={bubble}
     >
         <p className="connection">connection state: {props.con}</p>

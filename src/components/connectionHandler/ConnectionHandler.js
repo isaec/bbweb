@@ -46,9 +46,23 @@ const Accept = props => {
 }
 
 const ConnectionStep = props => {
+    let instruct
+    switch (props.step) {
+        case 1:
+            instruct = "create or accept an offer"
+            break
+        case 2:
+            instruct = "give the offer to the other client"
+            break
+        case 3:
+            instruct = "give the answer to the other client"
+            break
+        default:
+            instruct = "???"
+    }
     return <p
         className="ConnectionStep"
-    >step {props.step}</p>
+    >step {props.step}: {instruct}</p>
 }
 
 const ConnectionHandler = props => {
@@ -59,22 +73,32 @@ const ConnectionHandler = props => {
     const [remoteOffer, setRemoteOffer] = useState(null)
     const [remoteAnswer, setRemoteAnswer] = useState(null)
 
-    const createOffer = async () => setLocalOffer(await props.conn.createOffer())
-    const createAnswer = async () => setLocalAnswer(await props.conn.createAnswer())
+    const [step, setStep] = useState(1)
+
+    const createOffer = async () => {
+        setLocalOffer(await props.conn.createOffer())
+        setStep(2)
+    }
+    const createAnswer = async () => {
+        setLocalAnswer(await props.conn.createAnswer())
+        setStep(4)
+    }
 
     const acceptOffer = async offer => {
         props.conn.acceptRemote(offer)
         setRemoteOffer(offer)
-        setLocalAnswer(await props.conn.createAnswer())
+        await createAnswer()
+        setStep(3)
     }
     const acceptAnswer = answer => {
         props.conn.acceptRemote(answer)
         setRemoteAnswer(answer)
+        // setStep(5)
     }
 
 
     return <div className="ConnectionHandler">
-        <ConnectionStep step={0} />
+        <ConnectionStep step={step} />
         {remoteOffer === null ?
             <Create
                 thing="offer"

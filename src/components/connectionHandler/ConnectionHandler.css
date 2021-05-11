@@ -6,6 +6,12 @@ code.copy, textarea.paste {
     background-color: #242424;
     font: 1rem monospace;
     overflow-y: auto;
+    /*scrollbar hiding*/
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+code.copy::-webkit-scrollbar, textarea.paste::-webkit-scrollbar {
+    display: none;
 }
 
 textarea.paste {

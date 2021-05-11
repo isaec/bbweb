@@ -34,6 +34,22 @@ p.ConnectionStep {
     background-color: #242424;
 }
 
+@keyframes pop {
+    0% {
+        background-color: #242424;
+    }
+    50% {
+        background-color: #303030;
+    }
+    100% {
+        background-color: #242424;
+    }
+}
+
+p.ConnectionStep[pop="1"] {
+    animation: pop 1s cubic-bezier(.49,1.29,.73,-0.05);
+}
+
 div.Create, div.Accept {
     display: flex;
     flex-direction: column;

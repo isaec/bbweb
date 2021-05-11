@@ -46,8 +46,16 @@ const Accept = props => {
 }
 
 const ConnectionStep = props => {
+    const [pop, setPop] = useState(0)
+    const [step, setStep] = useState(props.step)
+
+    if (props.step !== step) {
+        setStep(props.step)
+        setPop(1)
+    }
+
     let instruct
-    switch (props.step) {
+    switch (step) {
         case 1:
             instruct = "create or accept an offer"
             break
@@ -62,7 +70,10 @@ const ConnectionStep = props => {
     }
     return <p
         className="ConnectionStep"
-    >step {props.step}: {instruct}</p>
+
+        onAnimationEnd={() => setPop(0)}
+        pop={pop}
+    >step {step}: {instruct}</p>
 }
 
 const ConnectionHandler = props => {

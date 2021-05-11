@@ -7,7 +7,7 @@ import MessageData from "../../MessageData"
 
 const hsl = (hue, sat, light) => `hsl(${hue},${sat || 90}%,${light || 70}%)`
 
-const Avatar = props =>
+const Avatar = React.memo(props =>
     <svg viewBox="0 0 100 100" className="Avatar">
         <circle cx="50" cy="50" r="50" fill={hsl(props.hue)} />
         <text
@@ -19,23 +19,22 @@ const Avatar = props =>
             textLength="80"
             fill={hsl(props.hue, null, 15)}
         >{props.char}</text>
-    </svg>
+    </svg>)
 
-const Message = props =>
+const Message = React.memo(props =>
     <div className="Message">
         <Avatar hue={props.hue} char={props.name[0]} />
         <div className="messageText">
             <p className="name" style={{ color: hsl(props.hue) }}>{props.name}</p>
             <p className="messageContent">{props.content}</p>
         </div>
-    </div>
+    </div>)
 
-const MessageAlert = props =>
+const MessageAlert = React.memo(props =>
     <div className="MessageAlert">
-        <p
-            style={{ color: hsl(props.hue) }}
+        <p style={{ color: hsl(props.hue) }}
         >{props.content}</p>
-    </div>
+    </div>)
 
 const Messages = React.forwardRef((props, ref) => {
     const messageList = props.messages.map(
@@ -100,7 +99,7 @@ const ComposeMessage = props => {
 const ConnectionState = props => {
     const [bubble, setBubble] = useState(0)
     const [oldCon, setOldCon] = useState(props.con + props.ice)
-    if(props.con + props.ice !== oldCon) {
+    if (props.con + props.ice !== oldCon) {
         setOldCon(props.con + props.ice)
         setBubble(1)
     }
@@ -115,7 +114,7 @@ const ConnectionState = props => {
     </div>
 }
 
-const ChatHeader = props => <div
+const ChatHeader = React.memo(props => <div
     className="ChatHeader"
 >
     <IdentityEditor
@@ -127,7 +126,7 @@ const ChatHeader = props => <div
         con={props.con}
         ice={props.ice}
     />
-</div>
+</div>)
 
 const Chat = props => {
 

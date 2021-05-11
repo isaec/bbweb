@@ -53,7 +53,6 @@ div.IdentityEditor {
     background-color: #131313;
 }
 
-
 div.Chat {
     display: flex;
     flex-direction: column;
@@ -84,7 +83,6 @@ div.ComposeMessage {
     margin: .2rem .5rem;
 }
 
-
 div.ConnectionState {
     display: flex;
     flex-direction: column;
@@ -95,8 +93,24 @@ div.ConnectionState {
     justify-content: center;
 }
 
+div.ConnectionState[bubble="1"] {
+    animation: bubble .6s cubic-bezier(.49, .19, .35, 1.04);
+}
+
 p.connection {
     margin: .25rem 0;
+}
+
+@keyframes bubble {
+    0% {
+        background-color: #242424;
+    }
+    50% {
+        background-color: #303030;
+    }
+    100% {
+        background-color: #242424;
+    }
 }
 
 textarea.messageBox {

@@ -97,11 +97,23 @@ const ComposeMessage = props => {
     </div>
 }
 
-const ConnectionState = props =>
-    <div className="ConnectionState">
+const ConnectionState = props => {
+    const [bubble, setBubble] = useState(0)
+    const [oldCon, setOldCon] = useState(props.con + props.ice)
+    if(props.con + props.ice !== oldCon) {
+        setOldCon(props.con + props.ice)
+        setBubble(1)
+    }
+    return <div
+        className="ConnectionState"
+
+        onAnimationEnd={() => setBubble(0)}
+        bubble={bubble}
+    >
         <p className="connection">connection state: {props.con}</p>
         <p className="connection">ice state: {props.ice}</p>
     </div>
+}
 
 const ChatHeader = props => <div
     className="ChatHeader"

@@ -45,6 +45,12 @@ const Accept = props => {
     </div>
 }
 
+const ConnectionStep = props => {
+    return <p
+        className="ConnectionStep"
+    >step {props.step}</p>
+}
+
 const ConnectionHandler = props => {
 
     const [localOffer, setLocalOffer] = useState(null)
@@ -68,6 +74,7 @@ const ConnectionHandler = props => {
 
 
     return <div className="ConnectionHandler">
+        <ConnectionStep step={0} />
         {remoteOffer === null ?
             <Create
                 thing="offer"
